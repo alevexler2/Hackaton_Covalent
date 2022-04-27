@@ -7,12 +7,18 @@ btnUser.addEventListener("click", (e) => {
   let address = inputUser.value;
   let url = `https://api.covalenthq.com/v1/1/address/${address}/balances_v2/?key=ckey_8129ee43a92e4bec8574fc26e05`;
   fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      if (!data.error) {
+  .then((response) => response.json())
+  .then((data) => {
+    
+    if (!data.error) {
+      let walletCaption = document.querySelector("#wallet-caption-id");
+        walletCaption.innerHTML = `Wallet: ${address}`;
+        walletCaption.classList.replace("animate__fadeInLeft", "animate__fadeOutRight");
+        walletCaption.classList.replace("animate__fadeOutRight", "animate__fadeInLeft");
+        container.innerHTML = '';
         data.data.items.forEach((e) => {
           console.log(e);
-          container.innerHTML += `<div class="card" style="width: 18rem;">
+          container.innerHTML += `<div class="card animate__animated animate__fadeInUp" style="width: 18rem;">
         <img src="${e.logo_url}" class="card-img-top" alt="">
         <div class="card-body">
           <h5 class="card-title">Wallet address: ${address}</h5>
