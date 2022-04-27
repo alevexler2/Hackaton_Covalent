@@ -1,6 +1,7 @@
 const inputUser = document.querySelector("#inputUser");
 const btnUser = document.querySelector("#btnUser");
 const container = document.querySelector("#container");
+const contractDecimal = 1000000000000000000;
 btnUser.addEventListener("click", (e) => {
   e.preventDefault();
   let address = inputUser.value;
@@ -11,17 +12,17 @@ btnUser.addEventListener("click", (e) => {
       if (!data.error) {
         data.data.items.forEach((e) => {
           console.log(e);
-          container.innerHTML = `<div class="card" style="width: 18rem;">
-          <img src="${e.logo_url}" class="card-img-top" alt="">
-          <div class="card-body">
-            <h5 class="card-title">Address: ${address}</h5>
-            <p class="card-text">Balance: ${e.contract_name} </p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Quote: ${e.quote}</li>
-            <li class="list-group-item">Quote: ${e.quote_rate}</li>
-          </ul>
-          </div>`;
+          container.innerHTML += `<div class="card" style="width: 18rem;">
+        <img src="${e.logo_url}" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5 class="card-title">Wallet address: ${address}</h5>
+          <p class="card-text">Balance: ${e.balance / contractDecimal} ${e.contract_ticker_symbol}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Saldo: $${e.quote}</li>
+          <li class="list-group-item">Valor Token: $${e.quote_rate}</li>
+        </ul>
+        </div>`;
         });
       } else {
         alert(data.error_message);
